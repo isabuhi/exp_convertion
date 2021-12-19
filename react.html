@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ExpressBank</title>
+
+    <link href="http://fonts.cdnfonts.com/css/proxima-nova-2" rel="stylesheet">
+
+</head>
+<body style="margin: 0">
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script crossorigin src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+
+<script type="text/babel">
+
+    let Currency = function (props) {
+        return <div className="width-15 currency-box"><img className="margin-right-9" src={props.src}/>{props.text}
+        </div>
+    }
+
+    let BuyPrice = function (props) {
+        return <div className="width-15 flex-row buy-price-box">
+            <div className="flex-col-center"><img className="margin-right-9" src={props.src}/></div>
+            {props.text}
+        </div>
+    }
+
+
+    let InputSection = function (props) {
+        return <div className="box-style-1 border-1">
+            <div className="text-box-2">{props.header}</div>
+            <div className="flex-row box-style-2">
+                <div className="calc-50-10">
+                    <div className="text-4">Amount</div>
+                    <input className="input-style-2" type="number"/>
+                </div>
+                <div className="calc-50-10">
+                    <div className="text-4">Currency</div>
+                    <select className="select-style">
+                        <option value="AZN">AZN</option>
+                        <option value="USD">USD</option>
+
+                    </select>
+                </div>
+                <div className="width-100">
+                    <div className="text-4">Account</div>
+                    <select className="select-style">
+                        <option className="font-size-16px" value="AZN">My account AZ50AZEN40060495088944101001
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+    let SellPrice = function (props) {
+        return <div className="width-15 flex-row buy-price-box">
+            <div className="flex-col-center"><img className="margin-right-9" src={props.src}/></div>
+            {props.text}
+        </div>
+    }
+
+
+    let ButtonIcon = function (props){
+        return <div className="flex-col-center margin-top-26">
+            <div className="flex-row-center">
+                <div className="flex-row-center button-box">
+                    <img src={props.src} width="18"/>
+                </div>
+            </div>
+            <div className="text-3">
+                {props.text}
+            </div>
+        </div>
+    }
+
+
+    let Navbar = function (props) {
+        return <div className="flex-row navbar">
+            <div className="flex-row">
+                <div className="flex-col-center logo-box">
+                    <img className="cursor-pointer" src="img/logo.svg" height="53"/>
+                </div>
+                <div className="flex-row phone-box">
+            <span className="flex-col-center span-margin">
+                <img src="img/phone.svg"/>
+            </span>
+                    <span className="flex-col-center">132</span>
+                </div>
+                <div className="flex-col-center search">
+                    <img className="search-icon" src="img/search_icon.svg"/>
+                        <input className="input-style" placeholder="Search"/>
+                </div>
+            </div>
+            <div className="flex-row margin-right-112">
+                <div className="flex-col-center icon-button">
+                    <div className="height-45">
+                        <img className="cursor-pointer" src="img/graph.svg"/>
+                    </div>
+                </div>
+                <div className="flex-col-center icon-button">
+                    <div className="height-45">
+                        <img className="cursor-pointer" src="img/basket.svg"/>
+                    </div>
+                </div>
+                <div className="flex-col-center">
+                    <div className="split-box">
+                        <img className="cursor-pointer" src="img/lock.svg"/>
+                    </div>
+                </div>
+                <div className="flex-col-center icon-button">
+                    <div className="height-45">
+                        <img className="cursor-pointer" src="img/people.svg"/>
+                    </div>
+                </div>
+                <div className="flex-col-center icon-button cursor-pointer">
+                    <div className="height-45">
+                        <img className="cursor-pointer" src="img/gear.svg"/>
+                    </div>
+                </div>
+                <div className="flex-col-center icon-button ">
+                    <div className="height-45 position-relative">
+                        <div className="notification-number">9</div>
+                        <img className="cursor-pointer" src="img/bell.svg"/>
+                    </div>
+                </div>
+                <div className="flex-col-center margin-right-16 cursor-pointer">
+                    <div className="text-1">Ilya Davidoff</div>
+                    <div className="text-2">Apple INC, Admin</div>
+                </div>
+                <div className="flex-col-center">
+                    <div className="log-in">
+                        <img className="log-in-icon cursor-pointer" src="img/log_in_icon.svg"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+
+    class LeftBarSection extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                textList : [
+                    "Dashboard", "Payments", "Payroll", "Templates", "History", "Products", "Express POS", "Ani Pay", "Map"
+                ],
+                src : [
+                    "img/speed.svg", "img/arrow.svg", "img/payroll.svg", "img/menu_icon.svg", "img/clock.svg", "img/card_icon.svg", "img/swift.svg", "img/ani_pay.svg", "img/location.svg"
+                ]
+            }
+        }
+
+        render(){
+            return <div className="left-bar-section">
+                {this.state.textList.map((string, index)=>
+                    <ButtonIcon key={index} text={string} src={this.state.src[index]}/>
+                )}
+            </div>
+        }
+    }
+
+
+
+    class Conversion extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                flag_src: ["img/rus_flag.svg", "img/rus_flag.svg", "img/rus_flag.svg", "img/rus_flag.svg", "img/rus_flag.svg"],
+                currency_name:["USD", "RUR", "GBP", "YTL", "EUR"],
+                buyPrice_text:["1.6980", "1.6980", "1.6980", "1.6980", "1.6980"],
+                buyPrice_icon_src:["img/dot.svg", "img/arrow_up.svg", "img/dot.svg", "img/arrow_up.svg", "img/arrow_up.svg"],
+                sellPrice_text:["1.6980", "1.6980", "1.6980", "1.6980", "1.6980"],
+                sellPrice_icon_src:["img/dot.svg", "img/arrow_up.svg", "img/dot.svg", "img/arrow_up.svg", "img/arrow_up.svg"],
+
+            }
+        }
+
+        render(){
+            return <div className="conversion-container">
+                <div className="currency-header">Conversion</div>
+                <div className="conversion-box">
+                    <div className="padding-18-0">
+                        <div className="flex-row position-relative padding-12-30">
+                            <div className="flex-col-center width-15 currency-title">CURRENCY</div>
+                            {this.state.currency_name.map((string, index)=><Currency key={index+1} text={string} src={this.state.flag_src[index]} />)}
+
+                        </div>
+                        <div className="flex-row background-color-1 position-relative padding-12-30">
+                            <div className="flex-col-center width-15 buy-price-title">Buy price</div>
+                            {this.state.buyPrice_text.map((string, index)=><BuyPrice key={index+2} text={string} src={this.state.buyPrice_icon_src[index]} />)}
+
+                        </div>
+                        <div className="flex-row position-relative padding-12-30">
+                            <div className="flex-col-center width-15 buy-price-title">Sell price</div>
+                            {this.state.sellPrice_text.map((string, index)=><SellPrice key={index+2} text={string} src={this.state.sellPrice_icon_src[index]} />)}
+                        </div>
+                        <div className="warning-box">
+                            Exchange operations are active Mon — Fri between 10:30 and 17:00
+                        </div>
+                        <div className="text-box-1">
+                            Make conversion
+                        </div>
+                        <div className="flex-row">
+                            <InputSection header="Sell info"/>
+                            <InputSection header="Buy info"/>
+                        </div>
+                        <div className="flex-row-center margin-top-71">
+                            <div className="width-60">
+                                <div className="text-4">Commission holding account</div>
+                                <div className="flex-row-center">
+                                    <select className="select-style margin-right-38">
+                                        <option className="font-size-16px" value="AZN">My account AZ50AZEN40060495088944101001
+                                        </option>
+                                    </select>
+                                    <div className="flex-col-center">
+                                        <div className="flex-row-center noWrap">
+                                            <span className="text-5">Commission amount</span>
+                                            <img className="cursor-pointer" src="img/key.svg"/>
+                                        </div>
+                                        <div className="text-6">180 ₼</div>
+                                    </div>
+                                </div>
+                                <div className="width-100 margin-top-26">
+                                    <div className="text-4">Payment purpose</div>
+                                    <select className="select-style">
+                                        <option className="font-size-16px" value="AZN">ex. lorem ipsum
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="stroke-1"></div>
+                        <div className="flex-row-center padding-32">
+                            <button className="cursor-pointer button-1">Convert</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+
+
+
+    class Body extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+
+            }
+        }
+
+        render(){
+            return <div>
+                <Navbar/>
+                <div className="flex-row">
+                    <LeftBarSection/>
+                    <Conversion/>
+                </div>
+            </div>
+        }
+    }
+
+
+    ReactDOM.render(<Body/>, document.getElementById('root'));
+</script>
+<style>
+    *{
+        font-family: Proxima Nova;
+    }
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+
+    }
+    .flex-row-center {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .flex-col-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .input-style:-ms-input-placeholder:-moz-placeholder{
+        font-size: 14px;
+        line-height: 14px;
+        color: #616173;
+    }
+
+    .input-style:focus-visible{
+        outline: unset;
+    }
+
+    .input-style {
+        font-size: 14px ;
+        line-height: 14px;
+        padding: 10px 38px;
+        height: 14px;
+        border-radius: 30px;
+        border: unset;
+        background: #F1F1F5;
+    }
+
+    .logo-box {
+        margin-right: 47px;
+        margin-left: 20px
+    }
+
+    .phone-box {
+        margin-right: 46px;
+    }
+    .navbar {
+        height: 90px;
+        background-color: white;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        justify-content: space-between;
+        position: fixed; width: 100%;
+        z-index: 3000;
+    }
+    .notification-number {
+        height: 16px;
+        width: 16px;
+        background: #F9C20A;
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 400;
+        text-align: center;
+        position: absolute;
+        top: 3px;
+        right: 0;
+    }
+    .search-icon {
+        position: absolute;
+        left: 4%;
+        top: calc(50% - 10px);
+    }
+    .search {
+        width: 355px; position: relative
+    }
+    .span-margin {
+        margin-right: 4px
+    }
+    .icon-button {
+        margin-right: 28px;
+    }
+    .split-box {
+        height: 45px; border-right: 1px solid #E6E6E6; padding-right: 16px; margin-right: 16px;
+    }
+    .height-45 {
+        height: 45px;
+    }
+    .position-relative {
+        position: relative;
+    }
+    .margin-right-112 {
+        margin-right: 112px;
+    }
+    .text-1 {
+        font-weight: 600; font-size: 16px; line-height: 16px; margin-bottom: 5px;
+    }
+    .text-2 {
+        font-weight: 400; font-size: 13px; line-height: 13px; color: #616173;
+    }
+    .margin-right-16 {
+        margin-right: 16px;
+    }
+    .log-in {
+        height: 45px; width: 45px; border-radius: 50%; background: rgba(0, 0, 0, 0.01); position: relative;
+    }
+    .log-in-icon {
+        position: absolute; top: 14px; left: 16px
+    }
+    .left-bar-section {
+        width: 120px;
+        background: #FFFFFF;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        padding: 10px;
+        display: inline-block;
+        margin-top: 90px;
+    }
+    .button-box {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #D4D8E2;
+        cursor: pointer;
+    }
+    .text-3 {
+        margin-top: 7px;
+        font-size: 14px;
+        line-height: 14px;
+        text-align: center;
+    }
+    .margin-top-26 {
+        margin-top: 26px;
+    }
+    .width-15{
+        width: 15%;
+    }
+    .button-box:hover {
+        background: #FAA61A;
+    }
+    .input-style-2 {
+        width: 100%;
+        outline: unset;
+        background: #F7F8FD;
+        border-radius: 7px;
+        border: 1px solid #DADAE5;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .select-style {
+        width: 100%;
+        outline: unset;
+        background: #F7F8FD;
+        border-radius: 7px;
+        border: 1px solid #DADAE5;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    .currency-box {
+        font-weight: 600; font-size: 18px; line-height: 18px;
+    }
+    .margin-right-9 {
+        margin-right: 9px;
+    }
+    .conversion-container {
+        width: 100%; margin-top: 90px; padding: 0 110px 110px
+    }
+    .currency-title {
+        font-weight: 600; font-size: 12px; line-height: 12px; color: #616173;
+    }
+    .padding-12-30 {
+        padding: 12px 30px;
+    }
+    .padding-18-0 {
+        padding: 18px 0
+    }
+    .conversion-box {
+        border-radius: 10px; background: #FFFFFF; box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08); overflow: hidden
+    }
+    .currency-header {
+        font-size: 30px; line-height: 36px; padding: 22px 0 33px
+    }
+    .background-color-1 {
+        background: #F6F6FA;
+    }
+    .buy-price-title {
+        font-weight: 600; font-size: 14px; line-height: 18px; color: #616173;
+    }
+    .buy-price-box {
+        font-weight: 600; font-size: 16px; line-height: 18px;
+    }
+    .warning-box {
+        padding: 20px 30px; color: #F58220; background: #FFF8EC; border-top: 1px solid rgba(250, 166, 26, 0.3); border-bottom: 1px solid rgba(250, 166, 26, 0.3);
+    }
+    .text-box-1 {
+        font-size: 24px; line-height: 29px; padding: 30px
+    }
+    .text-box-2 {
+        font-size: 18px; line-height: 22px; color: #5F6369; margin-bottom: 21px
+    }
+    .box-style-1 {
+        width: 50%; padding: 0 30px;
+    }
+    .border-1 {
+        border-right: 1px solid rgba(0, 0, 0, 0.1)
+    }
+    .box-style-2 {
+        gap: 20px; flex-wrap: wrap
+    }
+    .calc-50-10 {
+        width: calc(50% - 10px);
+    }
+    .text-4 {
+        font-size: 16px; line-height: 20px; color: #616173; margin-bottom: 5px
+    }
+    .font-size-16px {
+        font-size: 16px;
+    }
+    .width-100 {
+        width: 100%;
+    }
+    .margin-top-71 {
+        margin-top: 71px;
+    }
+    .width-60 {
+        width: 60%
+    }
+    .margin-right-38 {
+        margin-right: 38px;
+    }
+    .noWrap {
+        white-space: nowrap
+    }
+    .text-5 {
+        margin-right: 7px; font-size: 16px; color: #616173;
+    }
+    .text-6 {
+        font-size: 16px; line-height: 16px; margin-top: 5px
+    }
+    .stroke-1 {
+        height: 1px; background: rgba(0,0,0,0.1); margin-top: 40px
+    }
+    .button-1 {
+        padding: 24px 48px; border-radius: 8px; background: #F9C20A; border: unset; outline: unset
+    }
+    .padding-32 {
+        padding: 32px;
+    }
+
+</style>
+
+
+
+<div id="root"></div>
+
+</body>
+</html>
